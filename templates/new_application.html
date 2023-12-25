@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Не обработанные заявки</title>
+</head>
+<body>
+    <a href="{%url 'list_done' %}">Перейти в обработанные</a>
+    <h1>Не обработанные заявки:</h1>
+    <table>
+  <tr>
+    <th>Id</th>
+    <th>Описание</th>
+     <th>Телефон</th>
+     <th>Время</th>
+      <th>Изменить статус</th>
+    <th>Дата изменения</th>
+    <th>Указать комментарий</th>
+    <th>Комментарий</th>
+    <th>Указать время</th>
+    <th>Сохранить?</th>
+  </tr>
+  {%  for application in tasks %}
+  <tr>
+  <form action="{% url 'list' %}" method="POST">
+       {% csrf_token %}
+      <input type="hidden" id="f_name" name="id" value={{ application.id }} />
+      <td>{{ application.id }}</td>
+      <td><a>{{ application.description }}</a></td>
+      <td>{{ application.phone_number }}</td>
+      <td>{{application.created_at}}</td>
+      <td>{{ form.status }}</td>
+      <td>{{application.date}}</td>
+	<td>{{ form.comments }}</td>
+	<td>{{application.comments}}</td>
+	<td>{{ form.date }}</td>
+	<td><button type="submit" class="btn btn-primary  btn-lg">OK</button></td>
+  </form>
+    </tr>
+    {%  endfor %}
+    </table>
+</body>
+</html>
