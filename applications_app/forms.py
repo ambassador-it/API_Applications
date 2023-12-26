@@ -19,19 +19,12 @@ from .models import Аpplication #CustomUser,
 
 
 class CommentForm(forms.ModelForm):
-    # parent_comment = forms.IntegerField(
-    #     widget=forms.HiddenInput,
-    #     required=False
-    # )
-    attrs = {'rows': '2', 'cols': '20'}
 
     class Meta:
+
         model = Аpplication
         fields = ('comments', 'status', 'date')
-        #attrs = {'rows': '2', 'cols': '20'}
-        widgets = {
-            'date': forms.SelectDateWidget()
-        }
+
 
 
 class АpplicationForm(forms.Form):

@@ -91,28 +91,19 @@ class ApplicationNoList(LoginRequiredMixin, ListView):
     #form_class = CommentForm
 
     def get_context_data(self, **kwargs):
-        form = CommentForm()
-        #print(self.request.GET.get('comment_area'))
-        #print(self.request.POST['comment_area'])
+        initial_comments = self.request.GET.get('comments')
+        form = CommentForm(initial={'comments': initial_comments})
         context = super().get_context_data(**kwargs)
         context["tasks"] = context["object_list"].filter(status=0)
-        #context["tasks"].
-        #context = super(ApplicationList, self).get_context_data()
-        #context['phone'] = CustomUser.objects.get(username=self.request.user).phone_number
         context['form'] = form
-
-        # print(form.cleaned_data)
         return context
 
     def post(self, request, *args, **kwargs):
 
         form = CommentForm(request.POST, instance=Аpplication.objects.filter(pk=request.POST.get('id')).first())
         if form.is_valid():
-
             form.save()
             return super(ApplicationNoList, self).get(request, *args, **kwargs)
-        else:
-            return super(ApplicationNoList, self).get(*args, **kwargs)
 
 
 class ApplicationYesList(LoginRequiredMixin, ListView):

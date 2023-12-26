@@ -15,7 +15,6 @@
             <th>Время создания</th>
             <th>Изменить статус</th>
             <th>Дата изменения</th>
-            <th>Указать комментарий</th>
             <th>Комментарий</th>
             <th>Указать время</th>
             <th>Сохранить?</th>
@@ -31,9 +30,8 @@
                     <td>{{ application.created_at }}</td>
                     <td>{{ form.status }}</td>
                     <td>{{ application.date }}</td>
-                    <td>{{ form.comments }}</td>
-                    <td>{{ application.comments }}</td>
-                    <td>{{ form.date }}</td>
+                    <td><textarea name="comments" rows="4" cols="50">{{ application.comments }}</textarea></td>
+                    <td><input type="date" value={{ form.date }}</td>
                     <td><button type="submit" class="btn btn-primary  btn-lg">OK</button></td>
                 </form>
             </tr>
