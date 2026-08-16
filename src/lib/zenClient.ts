@@ -430,6 +430,9 @@ export class ZenClient {
           supportsTools = model.supported_parameters.includes('tools') || model.supported_parameters.includes('tool_choice')
         }
 
+        // Extract context window length from API fields if returned by server (e.g. context_length, max_context_length, max_position_embeddings)
+        const apiContextLength = model.context_length || model.max_context_length || model.max_position_embeddings || (model.context_window)
+
         const zenModel: ZenModel = {
           id,
           name: model.name || this.formatModelName(id),
@@ -444,6 +447,8 @@ export class ZenClient {
             pricing: meta.pricing,
             description: meta.description,
           }),
+          // Dynamically override or set contextWindow if returned by server/API
+          ...(apiContextLength ? { contextWindow: apiContextLength } : {}),
           // Use context_length from API if available and no hardcoded value
           ...(!meta?.contextWindow && model.context_length && { contextWindow: model.context_length }),
           // Use max_completion_tokens from API if available and no hardcoded value
