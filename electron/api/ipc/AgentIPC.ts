@@ -11,7 +11,7 @@ import type { ToolCall } from '../types'
 
 
 const activeRuns = new Map<string, AgentLoop>()
-const MAX_ACTIVE_RUNS = 4
+const MAX_ACTIVE_RUNS = 16
 
 
 const APPROVAL_TIMEOUT_MS = 120_000 // 2 minutes
